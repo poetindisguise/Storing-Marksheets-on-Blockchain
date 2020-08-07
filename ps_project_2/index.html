@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <link rel="stylesheet" type="text/css" href="CSS/global.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("form").submit(function(e){
+                console.log("heyyyyyyyy");
+                const cname=document.getElementById("channel").value;
+                $.get("/?name="+cname, function(data, status){
+                    console.log("Data: " + data + "\nStatus: " + status);
+                    alert(status);
+                });
+
+                e.preventDefault();
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="wrap">
+        <div class="login">
+            <form class="login-form" action="">
+					<span class="span-1">
+						Enter name of channel
+					</span>
+
+                <div class="input">
+                    <input id="channel" class="input-2" type="text" name="name" placeholder="Channel Name">
+                    <span class="span-2"></span>
+                    <span class="symbol">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+                </div>
+
+
+                <div class="wrap-form-btn">
+                    <button class="login-form-btn" type="submit">
+                        Create Channel
+                    </button>
+                </div>
+
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
