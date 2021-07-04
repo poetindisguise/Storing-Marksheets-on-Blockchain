@@ -59,7 +59,7 @@ chaincode applications and the ordering service nodes.
 A consensus is a broader term overarching the whole network. The peer nodes
 come to an agreement about an order, which serves to maintain correctness of
 the transactions. Common consensus algorithms include proof of work and
-proof of stake. 
+proof of stake. In Fabric, Ordering Service is responsible for consensus.
 ### 8.Types of Peers
 1. Committing Peer: Maintains the ledger and state, commits transactions and
 may hold smart contracts
