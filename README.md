@@ -17,7 +17,13 @@ We have deployed the chaincode, which is a technical container of a group of rel
 ### Tools used
 1. Hyperledger Fabric
 2. Docker
-3. GoLang to write the chaincode <br>
+3. GoLang to write the chaincode 
+### Working
+We changed the chaincode at Hyperledger Fabric according to the requirements of our certificate and
+then deployed it into the network. Marksheet data will be stored as a JSON
+object. Our network currently consists of 2 organisations with 1 peer each and
+1 ordering service with 1 peer. We linked the blockchain to the API which will be
+able to request transactions. <br>
 - clone this directory
 - open terminal in this directory 
 - make sure .sh file in this directory has excutable permission given if not "chmod +x ./createchannel.sh"
