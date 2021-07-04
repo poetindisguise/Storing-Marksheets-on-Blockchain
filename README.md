@@ -12,7 +12,8 @@ Additionally, students can easily access this verified copy from any part of the
 Our blockchain network will store the marksheets as JSON objects. We have used <b>Hyperledger Fabric</b> for the blockchain architecture. The marksheets will form an immutable ledger which cannot be tampered with. Since Fabric is a permissioned network, only the admins will have the ability to add marksheets. <br>
 Through the API, a transaction request is sent to the endorsing peers. The endorsing peers will validate the transaction and will reach a consensus whether the transaction is valid. In case of <b>viewing marksheets</b>, i.e., querying the ledger, the marksheets will be returned as response to the API in case of consensus. For <b>adding or modifying marksheets</b>, the application will check if the endorsement policy is fulfilled and submit the transaction to the Ordering Service, which will arrange the transactions in chronological order and send the block of marksheets to all the leader peers in the organisation. The leader peers will deliver the block to all the peers in their organisation through gossip protocol, using the channel of the respective organisation. The ledger will then be updated, and the API will be notified once the marksheet is successfully added, and this will be reflected on the website. 
 The organisation will be all the centres responsible for updating the blockchain, such as the NIC centres, education boards etc. <br>
-We have deployed the chaincode, which is a technical container of a group of related smart contracts, which will automate the transactions and ensure they are all following the same rules. Our smart contract stores the marksheet data of each student as a JSON object.
+We have deployed the chaincode, which is a technical container of a group of related smart contracts, which will automate the transactions and ensure they are all following the same rules. Our smart contract stores the marksheet data of each student as a JSON object. Structure of our basic certificate: <br>
+<img src = "https://user-images.githubusercontent.com/66271769/124385207-7353cc00-dcf2-11eb-8d48-fd5b5df21565.jpeg" width= "300" height = "150">
 
 ### Tools used
 1. Hyperledger Fabric
@@ -24,12 +25,72 @@ then deployed it into the network. Marksheet data will be stored as a JSON
 object. Our network currently consists of 2 organisations with 1 peer each and
 1 ordering service with 1 peer. We linked the blockchain to the API which will be
 able to request transactions. <br>
+
+## Website
+### Description
+Our front-end website consists of a home page, from which students can view
+their marksheets and admin organizations can login. The students have to enter their
+credentials: Board, Name of Examination, Year of Examination and Roll number
+in a form, which will send a request to the API and retrieve the marksheet from
+the blockchain and display it to the student. The admins have to enter their login
+credentials, after which they will be able to add, modify or view marksheets. On
+entering the board name, year, school and exam, they will receive a list of students in
+that school with the respective roll number, and once the admin uploads the
+marksheet, the name will be flagged. The data of the boards and schools will be
+stored in an SQLite relational database and the form is populated using the
+same. The database is queried by the API to give the school wise data. <br>
+<img src = "https://user-images.githubusercontent.com/66271769/124385712-93848a80-dcf4-11eb-8c2e-4b9e39d7f81c.jpeg" width= "400" height = "150"> <br>
+<br>
+<img src = "https://user-images.githubusercontent.com/66271769/124385714-94b5b780-dcf4-11eb-9e6b-6e306f612624.jpeg" width= "400" height = "200">
+
+### Tools used
+We have used HTML, CSS and Javascript to design the website. The API
+endpoints are called using HTTP get and post requests, using AJAX and JQuery.
+### Working
+We have made the website with the necessary forms. We have linked the
+forms to the database and to the API, so that students' and schools' data can be retrieved from
+the database and the marksheets can be added to the blockchain and viewed
+on request. A comfortable and easy-to-use User Interface has been prepared.
+## API
+### Description
+The application programming interface consists of 3 end points: <b>the RDBMS</b>,
+which will consist of the board, school and student data, <b>the Blockchain
+network</b>, which will have the marksheets stored as JSON objects, and <b>the
+website for users</b>. API Endpoints: <br>
+<img src = "https://user-images.githubusercontent.com/66271769/124386053-fde9fa80-dcf5-11eb-80db-85e7fd43f82d.jpeg" width= "450" height = "150">
+
+### Tools used
+The API has been written in GoLang, using the Gin framework. GORM, which is
+a very powerful Object Relational Mapping library for GoLang, has also been
+used.
+### Working
+We firstly learnt the basics of GoLang, understood how the API will function,
+and learnt the basics of the Gin framework. After deciding the endpoints etc.,
+we implemented it. HTTP requests are being sent and received using ajax
+requests.<br>
+The data for the dropdown forms can be fetched from the database using the
+API, the values entered will be sent back to the API on submission which will
+accordingly fetch the marksheets from the blockchain, or add new marksheets
+to the blockchain as JSON.
+## Admin Access
+Apart from all the above milestones, we have also prepared an application for
+the Admin. It authorizes the Admin to add nodes, turning up the network and
+adding channels to the blockchain. Upon deployment at a national level, more
+functionalities can be added into it.
+A snapshot of the Admin’s Frontend: <br>
+<img src = "https://user-images.githubusercontent.com/66271769/124385623-2a9d1280-dcf4-11eb-9825-be6070a7c584.jpeg" width= "350" height = "200">
+ ## How to Run                                                                                                                                             
 - clone this directory
 - open terminal in this directory 
-- make sure .sh file in this directory has excutable permission given if not "chmod +x ./createchannel.sh"
-- run : "go run main.go"
+- make sure .sh file in this directory has excutable permission given. If not give command "chmod +x ./createchannel.sh"
+- run using : "go run main.go"
 - website should be hosted on localhost:8080/form
 - make sure you have the fabric-samples cloned
 - cd into that directory
 - run the command: "./network.sh up"
-- website ready to use.
+- website ready to use. <br>
+Chaincode of the blockchain network is being invoked using BASH scripts. For example, 
+this will return all the marksheets stored in the blockchain: <br>
+<img src = "https://user-images.githubusercontent.com/66271769/124385934-84520c80-dcf5-11eb-9ed2-11909f82aeed.jpeg" width= "650" height = "200">
+
+
