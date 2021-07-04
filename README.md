@@ -7,8 +7,73 @@ Educational certificates issued to students will be stored by authorities direct
 on a blockchain network, which can be accessed by students from the website. The blockchain network will serve as an immutable ledger of certificates, which can be updated only by authorities, and hence will prevent fraud of tampering and using fake certificates.
 The distributed and decentralized nature of the network ensures that it even more trusted, as no central organization can tamper with the marksheets.  <br>
 Additionally, students can easily access this verified copy from any part of the world, in absence of the original hard copy. This is useful while applying for higher education or jobs, in order to be able to produce an authentic copy which can be trusted by the authorities.  <br>
+## Hyperledger Fabric
+Hyperledger fabric is an open-source, enterprise-graded permission distributed
+ledger technology platform. It is used majorly in enterprise contexts and has
+differentiating capabilities over popular distributed ledger or blockchain
+platforms.
+### Hyperledger CA:
+The Hyperledger fabric CA is the default Certificate Authority component 
+which issues PKI-based certificates to network member organizations and their
+users. The CA issues one root certificate to each member and one enrollment
+certificate to each authorized user.
+## Key Terms
+
+### 1.Peer
+Peer nodes are the basic network entities, each of which can hold copies of
+ledger and smart contracts. They maintain the ledger and depending on the type
+of peer node, can perform operations to the ledger. Peers are owned and
+maintained by members.
+### 2.Member
+A blockchain consists of one or more members, which are unique and legally
+separate entities in the network. A member, such as an organization, will run
+one or more separate peer nodes. Network components will be linked to a
+member.
+### 3.Ledger
+The ledger is a channel’s chain and current state data which is maintained by
+each peer on the channel.
+### 4.Chaincode
+<b>Smart contracts</b> are lines of code; domain specific programs, that define the
+transaction logic of an object in the blockchain. A chaincode is a technical
+container of a group of related smart contracts. The chaincode governs how
+smart contracts are packaged for deployments. Multiple smart contracts can
+be defined in the chaincode, and when the chaincode is deployed to the
+blockchain, all the smart contracts within it are made available.
+Chaincode execution results in a set of key-value writes(write set) that can be
+submitted to the network and applied to the ledger on all peers.
+
+### 5.Ordering service
+The ordering service consists of ordered nodes, which arrange the transactions
+in a chronological fashion. The ordering service exists independent of the peer
+processes, and the order transactions on first-come-first-serve basis for all the
+channels. The ordering service is common to the whole network, and contains
+the cryptographic identity material linked to each member.
+### 6.Channel
+A channel is a component of a private blockchain which allows for data
+isolation and confidentiality. A ledger can be made channel specific, and will be
+only shared across the peers in that channel. To interact with a channel,
+transacting parties must be properly authenticated to it. A channel is defined
+by members(organization), anchor peers per member, the shared ledger,
+chaincode applications and the ordering service nodes.
+### 7.Consensus
+A consensus is a broader term overarching the whole network. The peer nodes
+come to an agreement about an order, which serves to maintain correctness of
+the transactions. Common consensus algorithms include proof of work and
+proof of stake. 
+### 8.Types of Peers
+1. Committing Peer: Maintains the ledger and state, commits transactions and
+may hold smart contracts
+2. Endorsing Peer: It is a specialized committing peer that receives a
+transaction proposal for endorsement, responds granting or denying
+endorsement. Must hold smart contract.
+3. Ordering node: Approves the inclusion of transaction blocks into the ledger
+and communicates with committing and endorsing peer nodes. Doesn’t hold
+the smart contract and ledger. <br>
+<img src = "https://user-images.githubusercontent.com/66271769/124391488-78267900-dd0e-11eb-9306-ca27cdb84904.jpeg" width= "550" height = "280">
+
+
 ## Blockchain Network
-### Description
+### Description 
 Our blockchain network will store the marksheets as JSON objects. We have used <b>Hyperledger Fabric</b> for the blockchain architecture. The marksheets will form an immutable ledger which cannot be tampered with. Since Fabric is a permissioned network, only the admins will have the ability to add marksheets. <br>
 Through the API, a transaction request is sent to the endorsing peers. The endorsing peers will validate the transaction and will reach a consensus whether the transaction is valid. In case of <b>viewing marksheets</b>, i.e., querying the ledger, the marksheets will be returned as response to the API in case of consensus. For <b>adding or modifying marksheets</b>, the application will check if the endorsement policy is fulfilled and submit the transaction to the Ordering Service, which will arrange the transactions in chronological order and send the block of marksheets to all the leader peers in the organisation. The leader peers will deliver the block to all the peers in their organisation through gossip protocol, using the channel of the respective organisation. The ledger will then be updated, and the API will be notified once the marksheet is successfully added, and this will be reflected on the website. 
 The organisation will be all the centres responsible for updating the blockchain, such as the NIC centres, education boards etc. <br>
@@ -39,6 +104,7 @@ that school with the respective roll number, and once the admin uploads the
 marksheet, the name will be flagged. The data of the boards and schools will be
 stored in an SQLite relational database and the form is populated using the
 same. The database is queried by the API to give the school wise data. <br>
+<br>
 <img src = "https://user-images.githubusercontent.com/66271769/124385712-93848a80-dcf4-11eb-8c2e-4b9e39d7f81c.jpeg" width= "400" height = "150"> <br>
 <br>
 <img src = "https://user-images.githubusercontent.com/66271769/124385714-94b5b780-dcf4-11eb-9e6b-6e306f612624.jpeg" width= "400" height = "200">
@@ -92,5 +158,3 @@ A snapshot of the Admin’s Frontend: <br>
 Chaincode of the blockchain network is being invoked using BASH scripts. For example, 
 this will return all the marksheets stored in the blockchain: <br>
 <img src = "https://user-images.githubusercontent.com/66271769/124385934-84520c80-dcf5-11eb-9ed2-11909f82aeed.jpeg" width= "650" height = "200">
-
-
