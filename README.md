@@ -146,15 +146,12 @@ functionalities can be added into it.
 A snapshot of the Admin’s Frontend: <br>
 <img src = "https://user-images.githubusercontent.com/66271769/124385623-2a9d1280-dcf4-11eb-9825-be6070a7c584.jpeg" width= "350" height = "200">
  ## How to Run                                                                                                                                             
-- clone this directory
-- open terminal in this directory 
-- make sure .sh file in this directory has excutable permission given. If not give command "chmod +x ./createchannel.sh"
-- run using : "go run main.go"
-- website should be hosted on localhost:8080/form
-- make sure you have the fabric-samples cloned
-- cd into that directory
-- run the command: "./network.sh up"
-- website ready to use. <br>
+- install Golang, verson 1.14 +
+- install Gin
+- set up the fabric samples network 
+- open the teminal and cd into NIC_Project directory
+- run: "go run main.go"
+- the website should be hosted at localhost:8080 <br>
 Chaincode of the blockchain network is being invoked using BASH scripts. For example, 
 this will return all the marksheets stored in the blockchain: <br>
 <img src = "https://user-images.githubusercontent.com/66271769/124385934-84520c80-dcf5-11eb-9ed2-11909f82aeed.jpeg" width= "650" height = "200">
